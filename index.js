@@ -24,6 +24,7 @@ const puppeteer = require('puppeteer');
       watchVideos()
     }
   }, tickTime);
+  const openTabs = 20
   const url = [
     "https://www.youtube.com/watch?v=Lg4R-Sy32Y4&list=UU1biOzfLe10-1lNgrWtgJag&index=1",
     "https://www.youtube.com/watch?v=rnL3H3G9dLk&list=UU1biOzfLe10-1lNgrWtgJag&index=2",
@@ -56,12 +57,16 @@ const puppeteer = require('puppeteer');
     "https://www.youtube.com/watch?v=yS2EmpPoMbE&list=UU1biOzfLe10-1lNgrWtgJag&index=30"
   ]
   const watchVideos = async () => {
-    console.log("Starting to watch 10 videos");
-    const shuffledVideos = url.slice().sort(() => Math.random() - 0.5).splice(0, 10);
-    for (var i = 0; i < shuffledVideos.length; i++) {
+    console.log(`Starting to watch ${openTabs} videos`);
+    var videos = []
+    for(var i = 0; videos.length < openTabs; i++){
+      videos = [...videos, ...url]
+    }
+    videos = videos.splice(0, openTabs).slice().sort(() => Math.random() - 0.5)
+    for (var i = 0; i < videos.length; i++) {
       try {
         const page = await browser.newPage();
-        await page.goto(shuffledVideos[i], { waitUntil: 'networkidle2' });
+        await page.goto(videos[i], { waitUntil: 'networkidle2' });
         page.waitForNavigation()
         const elements = await page.$x('//*[@id="movie_player"]/div[4]/button')
         await elements[0].click()

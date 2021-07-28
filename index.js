@@ -24,7 +24,7 @@ const puppeteer = require('puppeteer');
       watchVideos()
     }
   }, tickTime);
-  const openTabs = 20
+  const openTabs = 30
   const url = [
     "https://www.youtube.com/watch?v=Lg4R-Sy32Y4&list=UU1biOzfLe10-1lNgrWtgJag&index=1",
     "https://www.youtube.com/watch?v=rnL3H3G9dLk&list=UU1biOzfLe10-1lNgrWtgJag&index=2",
